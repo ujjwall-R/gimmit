@@ -13,8 +13,8 @@ class CommitController(CommitControllerI):
 
     def commit(self) -> None:
         try:
-            commit_info : CommitInfo = self.tuiCore.display_and_gather_commit_info()
-            self.gitCore.commit_staged_changes(commit_info.message)
+            commit_message = self.tuiCore.display_and_gather_commit_info()
+            commit_info : CommitInfo = self.gitCore.commit_staged_changes(commit_message)
             self.admin_server_adaptor.save_commit(commit_info)
         except Exception as e:
             print(e)
