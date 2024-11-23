@@ -13,7 +13,7 @@ func SetupRouter(commit_controller controllers.IcommitController) *gin.Engine {
 	router.GET("/api/v1/check", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Service is running"})
 	})
-	router.GET("/api/v1/save/commit_info", commit_controller.SaveCommitData)
+	router.POST("/api/v1/save/commit_info", commit_controller.SaveCommitData)
 
 	// router.GET("/api/v1/items", getItems)
 	// router.GET("/api/v1/items/:id", getItem)
