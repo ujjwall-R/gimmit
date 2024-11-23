@@ -1,4 +1,4 @@
-package adapters
+package database_adapter
 
 import (
 	"context"
