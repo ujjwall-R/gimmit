@@ -33,3 +33,9 @@ go.work.sum
 
 # env file
 .env
+
+# VS Code workspace file
+*.code-workspace
+
+# MongoDB data directory
+data/
