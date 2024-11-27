@@ -3,10 +3,10 @@ services:
     build:
       context: .
       target: app # Target the client-runtime stage from the Dockerfile
+    container_name: next_app
     # When you bind-mount a host directory (in this case ./app:/app), the contents of the host directory (./app) are mirrored into the container's /app directory.
     # However, the node_modules directory inside the container may not be compatible with the operating system or architecture of the host machine.
     # If you bind-mount the entire ./app directory (which contains node_modules on the host), it could overwrite the node_modules directory inside the container, which might lead to errors or mismatches (e.g., architecture-specific dependencies).
-    container_name: next_app
     volumes:
       - ./app:/app # Bind-mount the app directory for live updates
       - /app/node_modules # Exclude node_modules from being overwritten by the host
