@@ -1,0 +1,43 @@
+services:
+  client:
+    build:
+      context: .
+      target: app # Target the client-runtime stage from the Dockerfile
+    container_name: next_app
+    # When you bind-mount a host directory (in this case ./app:/app), the contents of the host directory (./app) are mirrored into the container's /app directory.
+    # However, the node_modules directory inside the container may not be compatible with the operating system or architecture of the host machine.
+    # If you bind-mount the entire ./app directory (which contains node_modules on the host), it could overwrite the node_modules directory inside the container, which might lead to errors or mismatches (e.g., architecture-specific dependencies).
+    volumes:
+      - ./app:/app # Bind-mount the app directory for live updates
+      - /app/node_modules # Exclude node_modules from being overwritten by the host
+    ports:
+      - "3000:3000" # Expose the client app on localhost:3000
+    environment:
+      - NODE_ENV=development # Set the environment to development
+    depends_on:
+      - server # Ensure the Go Server service starts before the client
+
+  server:
+    build:
+      context: .
+      target: server # Target the server-runtime stage from the Dockerfile
+    container_name: go_server
+    volumes:
+      - ./core-backend:/core-backend # Bind-mount the Go server source code
+    ports:
+      - "8080:8080" # Expose the server API on localhost:8080
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/ # MongoDB connection string
+      - MONGODB_DB_NAME=gimmit
+    depends_on:
+      - mongo # Ensure the MongoDB service starts before the server
+
+  mongo:
+    build:
+      context: .
+      target: mongodb # Target the MongoDB stage from the Dockerfile
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Expose MongoDB on localhost:27017
+    volumes:
+      - ./data:/data/db # Persist MongoDB data locally
