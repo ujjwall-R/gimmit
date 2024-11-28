@@ -5,9 +5,9 @@ import (
 )
 
 type CommitInfo struct {
-	commit_hash  string
-	author_name  string
-	author_email string
-	message      string
-	timestamp    time.Time
+	RepositoryID string    `json:"repository_id"`
+	AuthorName   string    `json:"author_name"`
+	AuthorEmail  string    `json:"author_email"`
+	Message      string    `json:"message"`
+	Timestamp    time.Time `json:"timestamp"`
 }
