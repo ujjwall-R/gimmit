@@ -1,7 +1,8 @@
 package controllers
 
 import (
-	database "core-backend/adapters/database_adapter"
+	"core-backend/core"
+	"core-backend/entity"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,13 +13,24 @@ type IcommitController interface {
 }
 
 type commitController struct {
-	dbInterface database.IDB
+	commitCore *core.CommitCore
 }
 
-func (ctrl *commitController) SaveCommitData(c *gin.Context) {
+func (this *commitController) SaveCommitData(c *gin.Context) {
+	var commitInfo entity.CommitInfo
+	if err := c.ShouldBindJSON(&commitInfo); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err := this.commitCore.SaveCommitData(&commitInfo)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"error": err})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{"message": "Info Saved!"})
 }
 
-func NewCommitController(db database.IDB) IcommitController {
-	return &commitController{dbInterface: db}
+func NewCommitController(commitCore *core.CommitCore) IcommitController {
+	return &commitController{commitCore: commitCore}
 }
