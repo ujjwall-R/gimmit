@@ -22,7 +22,9 @@ func main() {
 	dbName := os.Getenv("MONGODB_DB_NAME")
 	db, err := database_adapter.NewInstance(mongoURI, dbName)
 	commit_core := core.NewCommitCore(db)
-	var commit_controller controllers.IcommitController = controllers.NewCommitController(commit_core)
+	kafka_core := core.NewKafkaCore()
+	var queueController controllers.IqueueController = controllers.NewqueueController(*kafka_core)
+	var commit_controller controllers.IcommitController = controllers.NewCommitController(commit_core, queueController)
 	router := rest_adapter.SetupRouter(commit_controller)
 	if err != nil {
 		log.Fatalf("Failed to connect to MongoDB: %v", err)

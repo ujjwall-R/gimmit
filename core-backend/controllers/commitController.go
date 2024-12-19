@@ -9,28 +9,33 @@ import (
 )
 
 type IcommitController interface {
-	SaveCommitData(cc *gin.Context)
+	Commit(cc *gin.Context)
 }
 
 type commitController struct {
-	commitCore *core.CommitCore
+	commitCore               *core.CommitCore
+	queueControllerInterface IqueueController
 }
 
-func (this *commitController) SaveCommitData(c *gin.Context) {
+func (this *commitController) Commit(c *gin.Context) {
 	var commitInfo entity.CommitInfo
 	if err := c.ShouldBindJSON(&commitInfo); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err := this.commitCore.SaveCommitData(&commitInfo)
+	// err := this.commitCore.SaveCommitData(&commitInfo)
+	// if err != nil {
+	// 	c.JSON(http.StatusOK, gin.H{"error": err})
+	// 	return
+	// }
+	err := this.queueControllerInterface.Produce("Commited", commitInfo)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"error": err})
-		return
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Error producing event!"})
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Info Saved!"})
 }
 
-func NewCommitController(commitCore *core.CommitCore) IcommitController {
-	return &commitController{commitCore: commitCore}
+func NewCommitController(commitCore *core.CommitCore, queuqueueControllerInterface IqueueController) IcommitController {
+	return &commitController{commitCore: commitCore, queueControllerInterface: queuqueueControllerInterface}
 }

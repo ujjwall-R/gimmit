@@ -29,8 +29,11 @@ services:
     environment:
       - MONGODB_URI=mongodb://mongo:27017/ # MongoDB connection string
       - MONGODB_DB_NAME=gimmit
+      - GO111MODULE=on
+      - CGO_ENABLED=1
     depends_on:
       - mongo # Ensure the MongoDB service starts before the server
+      - kafka1
 
   mongo:
     build:
@@ -62,6 +65,8 @@ services:
       - "29092:29092"
       - "9999:9999"
     environment:
+      # KAFKA_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
