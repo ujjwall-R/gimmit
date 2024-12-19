@@ -14,7 +14,7 @@ type KafkaCore struct {
 
 func NewKafkaCore() *KafkaCore {
 	kafkaProducer, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": "127.0.0.1:9092", // Kafka broker address
+		"bootstrap.servers": "kafka1:19092", // Kafka broker address
 		"debug":             "broker",
 	})
 	if err != nil {
@@ -45,6 +45,6 @@ func (this *KafkaCore) ProduceEvent(commit_info entity.CommitInfo, topic string)
 	if m.TopicPartition.Error != nil {
 		return fmt.Errorf("delivery failed: %w", m.TopicPartition.Error)
 	}
-	close(deliveryChan)
+	// close(deliveryChan)
 	return nil
 }

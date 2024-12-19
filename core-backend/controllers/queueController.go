@@ -3,6 +3,7 @@ package controllers
 import (
 	"core-backend/core"
 	"core-backend/entity"
+	"fmt"
 )
 
 type IqueueController interface {
@@ -19,5 +20,8 @@ func NewqueueController(Kafka_core core.KafkaCore) IqueueController {
 
 func (this *queueController) Produce(topic string, commit_info entity.CommitInfo) error {
 	err := this.kafka_core.ProduceEvent(commit_info, topic)
+	if err != nil {
+		fmt.Println(err)
+	}
 	return err
 }

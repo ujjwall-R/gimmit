@@ -29,11 +29,11 @@ func (this *commitController) Commit(c *gin.Context) {
 	// 	c.JSON(http.StatusOK, gin.H{"error": err})
 	// 	return
 	// }
-	err := this.queueControllerInterface.Produce("Commited", commitInfo)
+	err := this.queueControllerInterface.Produce("commited", commitInfo) //TODO : topic name as env
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Error producing event!"})
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Info Saved!"})
+	c.JSON(http.StatusOK, gin.H{"message": "Commit successful!"})
 }
 
 func NewCommitController(commitCore *core.CommitCore, queuqueueControllerInterface IqueueController) IcommitController {
