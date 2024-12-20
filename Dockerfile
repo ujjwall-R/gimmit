@@ -10,8 +10,10 @@ CMD ["npm", "run", "dev"]
 # Stage 2: Build the Go server
 FROM archlinux:latest AS server
 WORKDIR /core-backend
-RUN pacman -Syu --noconfirm go git
+RUN pacman -Syu --noconfirm go git gcc glibc
 COPY ./core-backend .
+RUN go mod download
+RUN go get -u github.com/confluentinc/confluent-kafka-go/kafka
 EXPOSE 8080
 CMD ["go", "run", "main.go"]
 
