@@ -9,6 +9,7 @@ services:
     # If you bind-mount the entire ./app directory (which contains node_modules on the host), it could overwrite the node_modules directory inside the container, which might lead to errors or mismatches (e.g., architecture-specific dependencies).
     volumes:
       - ./app:/app # Bind-mount the app directory for live updates
+      - /app/node_modules # Prevent the node_modules directory from being overwritten
     ports:
       - "3000:3000" # Expose the client app on localhost:3000
     environment:
