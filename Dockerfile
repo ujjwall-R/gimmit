@@ -1,7 +1,7 @@
 # Stage 1: Build the Next.js app
-FROM archlinux:latest AS app
+FROM debian:latest AS app
 WORKDIR /app
-RUN pacman -Syu --noconfirm nodejs npm
+RUN apt-get update && apt-get upgrade -y && apt-get install -y nodejs npm
 COPY ./app .
 RUN npm install
 EXPOSE 3000
