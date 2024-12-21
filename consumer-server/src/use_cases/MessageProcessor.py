@@ -14,9 +14,7 @@ class MessageProcessor:
         #     timestamp=message_data['value']["message"])
         
         analytics_result = self.run_analytics(message)
-        print('--------------------------------')
         self.db_adaptor.save_result(analytics_result)
-        print('--------------------------------')
 
 
     def run_analytics(self, message):
