@@ -16,5 +16,6 @@ class MessageProcessor:
         analytics_result = self.run_analytics(message)
         self.db_adaptor.save_result(analytics_result)
 
+
     def run_analytics(self, message):
         return {"key": message.key, "value_length": len(message.value)}

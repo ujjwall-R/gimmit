@@ -35,6 +35,20 @@ services:
       - mongo # Ensure the MongoDB service starts before the server
       - kafka1
 
+  kafka-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kafka-consumer
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MONGODB_URI=mongodb://mongo:27017/ # MongoDB connection string
+      - MONGODB_DB_NAME=gimmit
+    depends_on:
+      - kafka1
+      - mongo
+      - server
+
   mongo:
     build:
       context: .
