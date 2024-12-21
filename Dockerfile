@@ -41,3 +41,11 @@ EXPOSE 27017
 
 # Run MongoDB
 CMD ["mongod", "--bind_ip_all", "--dbpath", "/data/db"]
+
+# consumer server
+FROM python:3.10-slim
+WORKDIR /app
+COPY consumer-server/requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+COPY consumer-server/ /app/
+CMD ["python", "main.py"]
