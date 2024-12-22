@@ -33,7 +33,7 @@ export default function RootLayout({
         <div className="flex h-screen overflow-hidden">
           <Sidebar />
           <div className="flex-1 flex flex-col">
-            <Header appName="Gimmit" />
+            <Header />
             <main className="p-4 flex-1 overflow-auto">{children}</main>
           </div>
         </div>

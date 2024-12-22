@@ -37,7 +37,7 @@ export default () => {
     >
       <div className="w-72 max-w-full">
         <Select.Trigger className="w-full inline-flex items-center justify-between px-3 py-2 text-sm text-gray-600 bg-white border rounded-lg shadow-sm outline-none font-mono">
-          <Select.Value placeholder="Select your country">
+          <Select.Value placeholder="Select a repository">
             {value}
           </Select.Value>
           <Select.Icon className="text-gray-400">
@@ -116,7 +116,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
   ({ children, className, ...props }, forwardedRef) => {
     return (
       <Select.Item
-        className="flex items-center justify-between px-3 cursor-default py-2 duration-150 text-gray-600 font-mono data-[state=checked]:text-indigo-600 data-[state=checked]:bg-indigo-50 data-[highlighted]:text-indigo-600 data-[highlighted]:bg-indigo-50 data-[highlighted]:hover:text-indigo-600 data-[highlighted]:hover:bg-indigo-50 outline-none"
+        className="flex items-center justify-between px-3 cursor-default py-2 duration-150 text-gray-600 font-mono data-[state=checked]:text-green-600 data-[state=checked]:bg-green-50 data-[highlighted]:text-green-600 data-[highlighted]:bg-green-50 data-[highlighted]:hover:text-green-600 data-[highlighted]:hover:bg-green-50 outline-none"
         {...props}
         ref={forwardedRef}
       >
@@ -127,7 +127,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
           <Select.ItemIndicator>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 text-indigo-600"
+              className="w-5 h-5 text-green-600"
               viewBox="0 0 20 20"
               fill="currentColor"
             >

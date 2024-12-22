@@ -4,7 +4,7 @@ import Image from "next/image";
 import DateRangePicker from "@/components/date_range_picker";
 import DropDownSearchSelect from "./drop_down_search_select";
 
-export default function Header({ appName }: { appName: string }) {
+export default function Header() {
   const [selectedRange, setSelectedRange] = useState<string | null>(null);
 
   return (
