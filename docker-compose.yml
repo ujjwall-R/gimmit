@@ -14,6 +14,7 @@ services:
       - "3000:3000" # Expose the client app on localhost:3000
     environment:
       - NODE_ENV=development # Set the environment to development
+      - WATCHPACK_POLLING=true
     depends_on:
       - server # Ensure the Go Server service starts before the client
 
