@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-select": "^2.1.4",
     "antd": "^5.22.5",
     "apexcharts": "^4.3.0",
     "date-fns": "^4.1.0",

@@ -52,7 +52,7 @@ export default function DateRangePicker({ onRangeChange }: DateRangePickerProps)
     <div className="relative">
       <div
         onClick={() => setPickerVisible(!isPickerVisible)}
-        className="bg-green-100 text-green-700 px-4 py-1 rounded-lg cursor-pointer"
+        className="bg-green-100 text-green-700 px-4 py-1 rounded-xl cursor-pointer hover:bg-green-200"
       >
         {`${dayjs(selectedRange.startDate).format("YYYY-MM-DD")} - ${dayjs(selectedRange.endDate).format("YYYY-MM-DD")}`}
       </div>
