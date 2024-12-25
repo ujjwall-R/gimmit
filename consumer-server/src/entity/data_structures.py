@@ -11,6 +11,20 @@ class CommitInfo:
     timestamp: datetime = field(default_factory=datetime.now)
 
 @dataclass
+class CommitCommiterAnalytics:
+    committer_vs_commit_count : dict # {commiter:cnt}
+    committerRankingByCount : list[str]
+    committerRankingByBestPractices : list[str]
+    # more to add
+
+@dataclass
+class RepositoryAnalytics:
+    repository_id : str
+    commits : list[CommitInfo]
+    flagged_commits : list[CommitInfo]
+    commit_commiter_analytics : CommitCommiterAnalytics
+
+@dataclass
 class QueueMessage:
     key : str
     value : str
