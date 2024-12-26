@@ -12,17 +12,16 @@ class CommitInfo:
 
 @dataclass
 class CommitCommiterAnalytics:
-    committer_vs_commit_count : dict # {commiter:cnt}
-    committerRankingByCount : list[str]
-    committerRankingByBestPractices : list[str]
-    # more to add
+    committer_vs_commit_count: dict = field(default_factory=dict)  # Use default_factory
+    committerRankingByCount: list[str] = field(default_factory=list)
+    committerRankingByBestPractices: list[str] = field(default_factory=list)
 
 @dataclass
 class RepositoryAnalytics:
     repository_id : str
-    commits : list[CommitInfo]
-    flagged_commits : list[CommitInfo]
-    commit_commiter_analytics : CommitCommiterAnalytics
+    commits : list[CommitInfo] = field(default_factory=list)
+    flagged_commits : list[CommitInfo] = field(default_factory=list)
+    commit_commiter_analytics : CommitCommiterAnalytics = CommitCommiterAnalytics()
 
 @dataclass
 class QueueMessage:
