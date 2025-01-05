@@ -9,9 +9,12 @@ class QueueController:
         print("KafkaController started.")
         try:
             while True:
-                consumed_data = self.kafka_consumer.consume()
-                if consumed_data:
-                    self.message_processor.process_message(consumed_data)
+                try:
+                    consumed_data = self.kafka_consumer.consume()
+                    if consumed_data:
+                        self.message_processor.process_message(consumed_data)
+                except Exception as process_error:
+                    print(process_error)
                 time.sleep(5)
         except KeyboardInterrupt:
             pass
