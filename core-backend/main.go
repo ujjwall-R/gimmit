@@ -25,7 +25,10 @@ func main() {
 	kafka_core := core.NewKafkaCore()
 	var queueController controllers.IqueueController = controllers.NewqueueController(*kafka_core)
 	var commit_controller controllers.IcommitController = controllers.NewCommitController(commit_core, queueController)
-	router := rest_adapter.SetupRouter(commit_controller)
+
+	var analytics_core core.AnalyticsCore = *core.NewAnalyticsCore(db)
+	var anlytics_controller controllers.IanalyticsController = controllers.NewAnalyticsController(&analytics_core)
+	router := rest_adapter.SetupRouter(commit_controller, anlytics_controller)
 	if err != nil {
 		log.Fatalf("Failed to connect to MongoDB: %v", err)
 	} else {
