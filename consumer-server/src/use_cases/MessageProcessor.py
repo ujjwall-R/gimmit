@@ -19,7 +19,10 @@ class MessageProcessor:
     def run_analytics(self, message : QueueMessage):
         commit_info = CommitInfo(**(json.loads(message.value)))
         old_analytics : RepositoryAnalytics = self.db_adaptor.fetch_RepositoryAnalytics(commit_info.repository_id)
-        old_analytics.commit_commiter_analytics = CommitCommiterAnalytics(**old_analytics.commit_commiter_analytics)
+        
+
+        if isinstance(old_analytics.commit_commiter_analytics,dict):
+            old_analytics.commit_commiter_analytics = CommitCommiterAnalytics(**old_analytics.commit_commiter_analytics)
 
         result_analytics = old_analytics
         result_analytics.commits.append(commit_info)
