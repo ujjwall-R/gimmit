@@ -15,5 +15,8 @@ class QueueController:
                 time.sleep(5)
         except KeyboardInterrupt:
             pass
+        except Exception as e:
+            print(e)
+            pass
         finally:
             self.kafka_consumer.closeKafkaConsumer()

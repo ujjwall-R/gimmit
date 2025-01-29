@@ -20,7 +20,7 @@ type DB struct {
 	dbName string
 }
 
-func NewInstance(uri, dbName string) (*DB, error) {
+func NewInstance(uri, dbName string) (IDB, error) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
 		return nil, err
