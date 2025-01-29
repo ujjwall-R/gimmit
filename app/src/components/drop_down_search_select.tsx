@@ -1,23 +1,13 @@
 import * as Select from "@radix-ui/react-select";
 import React, { useState } from "react";
 
-export default () => {
+interface DropDownSearchSelectProps {
+  placeHolder: string;
+  menuItems: string[];
+}
+
+export default ({ placeHolder, menuItems }: DropDownSearchSelectProps) => {
   // You can use any API to generate a list of countries
-  const menuItems = [
-    "archlinux/archwiki",
-    "microsoft/vscode",
-    "mongodb/mongo",
-    "facebook/react",
-    "python/cpython",
-    "torvalds/linux",
-    "flutter/flutter",
-    "vercel/next.js",
-    "golang/go",
-    "nodejs/node",
-    "facebook/create-react-app",
-    "microsoft/TypeScript",
-    "tailwindlabs/tailwindcss",
-  ];
 
   const [value, setValue] = useState("");
   const [countries, setCountries] = React.useState(menuItems);
@@ -37,7 +27,7 @@ export default () => {
     >
       <div className="w-72 max-w-full">
         <Select.Trigger className="w-full inline-flex items-center justify-between px-3 py-2 text-sm text-gray-600 bg-white border rounded-lg shadow-sm outline-none font-mono">
-          <Select.Value placeholder="Select a repository">
+          <Select.Value placeholder={placeHolder}>
             {value}
           </Select.Value>
           <Select.Icon className="text-gray-400">
